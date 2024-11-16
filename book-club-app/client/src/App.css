@@ -1,0 +1,21 @@
+*{
+  background-color: rgb(233, 239, 239);
+}
+.App{
+  position: relative;
+}
+.search-bar-container{
+  position: absolute;
+  border:solid 2px pink;
+  width:20vw;
+  margin-top:8%;
+  margin-left:20%;
+  /* transform: translate(-50%,0%); */
+}
+
+.nav-bar-container{
+  border:solid 2px black;
+  width: fit-content;
+  margin-left:10px;
+  margin-top:10px;
+ }

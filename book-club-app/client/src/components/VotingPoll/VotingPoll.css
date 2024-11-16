@@ -1,0 +1,210 @@
+/*==================== GOOGLE FONTS ====================*/
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Rubik&display=swap");
+
+/*==================== VARIABLES CSS ====================*/
+:root {
+  --text-color: #000000;
+  --bg-color: #ffffff;
+  --clr-primary: #000000;
+  --clr-gray-100: #cccccc;
+  --clr-gray-200: #e6e6e6;
+  --clr-gray-300: #f0f0f0;
+  --body-font: "Lato", sans-serif;
+  --normal-font-size: 0.938rem;
+}
+
+@media screen and (min-width: 968px) {
+  :root {
+    --normal-font-size: 1rem;
+  }
+}
+
+*,
+*:after,
+*:before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+
+.et__box--wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+  padding-bottom:60px;
+  position: relative;
+  border: solid 2px rgb(212, 212, 212);
+  border-radius: 15px;
+  background-color: rgb(238, 238, 238);
+  
+}
+
+.add-book-button{
+  position: absolute;
+  bottom:10px;
+  right:15px;
+  border:solid 0.5px rgb(157, 157, 157);
+  border-radius: 10px;
+  background-color: rgb(230, 230, 230);
+  padding:5px 10px 5px 10px;
+  font-size: 1em;
+
+  font-weight:400;
+  color: black;
+}
+.submit-vote-button{
+  position: absolute;
+  bottom:10px;
+  right:15px;
+  border:solid 0.5px rgb(157, 157, 157);
+  border-radius: 10px;
+  background-color: rgb(230, 230, 230);
+  padding:5px 10px 5px 10px;
+  font-size: 1em;
+
+  font-weight:400;
+  color: black;
+
+}
+
+.et__box--wrapper header {
+  position: absolute;
+  color: gray;
+  border: solid rgb(222, 222, 222) 2px;
+  top:0;
+  left:0;
+  width:100%;
+  height:10%;
+  /* margin-top: 1px; */
+  background-color:rgb(235, 235, 235);
+  padding-left:12px;
+  padding-top:5px;
+
+} 
+
+.et__poll--area {
+  margin: 14px 0 15px;
+  overflow: scroll;
+  height: 80%;
+  /* border: solid 2px rgb(212, 212, 212); */
+  border-radius: 15px;
+  background-color: transparent;
+  
+}
+
+.et__poll--area .et__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 2px solid var(--clr-gray-200);
+  background-color: rgba(225, 225, 225, 0.838);
+  transition: all 0.2s ease;
+ 
+  
+}
+
+.et__poll--area .et__box:hover {
+  border-color: var(--clr-primary);
+  background-color: transparent;
+}
+
+/* .et__poll--area .et__box.et__selected {
+  border-color: var(--clr-primary);
+} */
+
+.et__poll--area .et__box .et__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.et__poll--area .et__box .et__row .et__column {
+  display: flex;
+  align-items: center;
+ 
+}
+
+.et__poll--area .et__box .et__row .et__circle {
+  display: block;
+  height: 19px;
+  width: 19px;
+  margin-right: 15px;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid var(--clr-gray-100);
+  
+}
+
+.et__poll--area .et__box.et__selected .et__circle::after {
+    visibility:visible;
+    opacity: 1;
+}
+.et__poll--area .et__box .et__circle::after {
+    content:'';
+    width:68%;
+    height:68%;
+    border-radius: 50%;
+    position: absolute; /* Position relative to the parent */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to center */
+    background-color: rgba(198, 132, 186, 0.989);
+    visibility:hidden;
+    
+}
+
+.et__poll--area .et__box.et__selected .et__row .et__circle {
+  border-color: var(--clr-primary);
+}
+
+.et__poll--area .et__box .et__row span {
+  font-size: 16px;
+  font-weight: 400;
+  background-color: transparent;
+}
+
+.et__poll--area .et__box .et__percent {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.et__poll--area .et__box.et__selected .et__percent {
+  visibility: visible;
+  opacity: 1;
+}
+
+.et__poll--area .et__box .et__progress {
+  height: 10px;
+  width: 100%;
+  position: relative;
+  border-radius: 30px;
+  border:solid rgb(221, 221, 221) 2px;
+  background-color: var(--clr-gray-300);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  margin-top: 8px;
+}
+
+.et__poll--area .et__box.et__selected .et__progress {
+  visibility: visible;
+  opacity: 1;
+}
+
+.et__poll--area .et__box .et__progress .progress-bar {
+  height: 100%;
+  background-color: rgba(198, 132, 186, 0.989); /* Fill color */
+  width: 0; /* Start at 0 */
+  transition: width 0.5s ease; /* Smooth transition */
+  border-radius: 30px;
+}
