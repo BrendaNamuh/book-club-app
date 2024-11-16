@@ -12,13 +12,13 @@ const NavBar = () => {
     };
     return (
     <nav className='border-2 border-red-600 h-10 flex flex-row' role="navigation">
-      {/* <div className='border-2 border-red-600' id="menuToggle"> */}
+      <div className='border-2 border-red-600' id="menuToggle">
         {/* Used as check receiver so you can you select on it */}
         <input type="checkbox" />
 
-        {/* <span></span>
         <span></span>
-        <span></span> */}
+        <span></span>
+        <span></span>
         
         <ul className='border-2 border-blue-600 'id="menu">
           <li><Link to="/">Currently Reading</Link></li>
@@ -27,7 +27,7 @@ const NavBar = () => {
          
         
         </ul>
-      {/* </div> */}
+      </div>
 
 
 </nav>
