@@ -32,39 +32,35 @@
 .et__box--wrapper {
   width: 100%;
   height: 100%;
-  padding: 25px;
+  padding: 10px;
   padding-bottom:60px;
   position: relative;
   border: solid 2px rgb(212, 212, 212);
   border-radius: 15px;
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(244, 244, 244); */
   
 }
 
 .add-book-button{
   position: absolute;
-  bottom:10px;
+  bottom:30px;
   right:15px;
-  border:solid 0.5px rgb(157, 157, 157);
+  border:solid 0.5px rgb(242, 242, 242);
   border-radius: 10px;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(242, 242, 242);
   padding:5px 10px 5px 10px;
-  font-size: 1em;
-
-  font-weight:400;
   color: black;
 }
 .submit-vote-button{
   position: absolute;
-  bottom:10px;
+  bottom:15px;
   right:15px;
-  border:solid 0.5px rgb(157, 157, 157);
+  left:20px;
+  border:solid 0.5px rgb(185, 185, 185);
   border-radius: 10px;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(242, 242, 242);
   padding:5px 10px 5px 10px;
-  font-size: 1em;
 
-  font-weight:400;
   color: black;
 
 }
@@ -72,28 +68,31 @@
 .et__box--wrapper header {
   position: absolute;
   color: gray;
-  border: solid rgb(222, 222, 222) 2px;
+  border: solid rgb(242, 242, 242)2px;
   top:0;
   left:0;
   width:100%;
   height:10%;
-  /* margin-top: 1px; */
-  background-color:rgb(235, 235, 235);
+  background-color:rgb(242, 242, 242);
   padding-left:12px;
   padding-top:5px;
 
 } 
 
 .et__poll--area {
-  margin: 14px 0 15px;
+  /* margin: px 0 15px; */
+  top:0;
   overflow: scroll;
-  height: 80%;
+  height: 100%;
+  padding:10px;
+
   /* border: solid 2px rgb(212, 212, 212); */
   border-radius: 15px;
   background-color: transparent;
   
 }
 
+/*Rectangle*/
 .et__poll--area .et__box {
   display: flex;
   justify-content: center;
@@ -101,12 +100,13 @@
   flex-wrap: wrap;
   border-radius: 5px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
   border-radius: 12px;
   border: 2px solid var(--clr-gray-200);
-  background-color: rgba(225, 225, 225, 0.838);
+  /* background-color: rgba(237, 237, 237, 0.838); */
   transition: all 0.2s ease;
+ 
  
   
 }

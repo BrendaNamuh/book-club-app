@@ -6,9 +6,7 @@ import { SearchResults } from '../SearchBar/SearchResults.jsx';
 import { BookmarkX } from 'lucide-react';
 
 
-export const Popup = ({ onClose }) => {
-
-
+export const Popup = ({isVisible, onClose }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [emailError, setEmailError] = useState('');
     const [bookError, setBookError] = useState('');
@@ -18,6 +16,10 @@ export const Popup = ({ onClose }) => {
     const [showSearchResults, setShowSearchResults] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
+    if (!isVisible) return null;
+
+
+    
     // Handle input change of search bar
     const handleInputChange = (event) => {
         setInputValue(event.target.value);

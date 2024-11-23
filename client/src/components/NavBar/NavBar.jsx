@@ -5,32 +5,25 @@ import { Link } from 'react-router-dom'; // Import Link
 
 
 const NavBar = () => {
-    const [isOpen, setIsOpen] = useState(false)
+    const [activePage, setActivePage] = useState('currently-reading')
+    const handleClick = (page) =>{
+      setActivePage(page)
+
+    }
   
-    const navigateTo = (url) => {
-        window.location.href = url; // Navigate to the specified URL
-    };
+
+  
+
     return (
-    <nav className='border-2 border-red-600 h-10 flex flex-row' role="navigation">
-      <div className='border-2 border-red-600' id="menuToggle">
-        {/* Used as check receiver so you can you select on it */}
-        <input type="checkbox" />
+      <nav className=' w-[1248px] mt-5 p-1 mx-10 border-b border-gray-300'>
+              <input type="checkbox" id="menuToggle" className="hidden" />
 
-        <span></span>
-        <span></span>
-        <span></span>
-        
-        <ul className='border-2 border-blue-600 'id="menu">
-          <li><Link to="/">Currently Reading</Link></li>
-          <li> <Link to="/upcoming-events">Upcoming Events</Link></li>
-          <li><Link to="/past-events">Past Event</Link></li>
-         
-        
-        </ul>
-      </div>
-
-
-</nav>
+          <ul className='flex flex-row h-full items-center space-x-6 font-bold text-gray-500' >
+            <li onClick={()=>handleClick('currently-reading')} className={`nav-link ${activePage === 'currently-reading' ? 'active' : ''}`}><Link to="/">Home</Link></li>
+            <li onClick={()=>handleClick('upcoming-events')} className={`nav-link ${activePage === 'upcoming-events' ? 'active' : ''}`}>  <Link to="/upcoming-events">Next Read</Link></li>
+            <li onClick={()=>handleClick('past-events')} className={`nav-link ${activePage === 'past-events' ? 'active' : ''}`}> <Link to="/past-events">Secrets</Link></li>
+          </ul>
+      </nav>
     )
 }
 

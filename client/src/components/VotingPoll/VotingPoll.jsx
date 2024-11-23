@@ -68,21 +68,22 @@ export const VotingPoll = () => {
     
       <> 
           <div className="et__box--wrapper">
-          <button className='add-book-button' onClick={handleAddBookClick}>Add a book</button>
+          {/* <button className='add-book-button' onClick={handleAddBookClick}>Add a book</button> */}
             <button className='submit-vote-button' onClick={handleSubmit}>Submit Vote</button>
-            <header className='rounded-t-lg font-bold text-sm'>Voting Poll</header>
-            <p className='mt-6 font-medium bg-transparent font-gray pl-2'> Welcome! Please submit a vote for our next read : </p>
+            {/* <header className='rounded-t-lg font-bold text-sm mb-10 h-9 flex items-center pb-2'>Please vote for our next read</header> */}
             <div className="et__poll--area">
               {votes.map((option, index) => (
                 <label
                   key={index}
-                  className={`et__box ${selectedIndex === index ? 'et__selected' : ''}`}
+                  className={`flex flex-row items-center et__box ${selectedIndex === index ? 'et__selected' : ''}`}
                   onClick={() => handleBoxClick(index)}
                 >
                   <div className="et__row bg-transparent">
                     <div className="et__column bg-transparent">
                       <span className="et__circle"></span>
-                      <div className="et__title font-medium bg-transparent">{option.title}</div>
+                      <div className="et__title font-medium bg-transparent pl-3 "
+                      >
+                      {option.title}</div>
                     </div>
                     <div 
                       className="et__percent font-medium bg-transparent"
