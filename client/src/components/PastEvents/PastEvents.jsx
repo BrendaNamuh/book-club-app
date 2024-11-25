@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 // import './PastEvents.css'
-import {Popup} from '../Popup/Popup.jsx'
+import {AddCard} from '../Popup/AddCard.jsx'
 import {Library, ChevronRight, ChevronLeft,Plus } from 'lucide-react';;
 const PastEvents = () => {
 
@@ -8,40 +8,42 @@ const PastEvents = () => {
 
 
 
-
-
-    // const img_sources = [
-    //     'https://media.istockphoto.com/id/1438424750/vector/book-club-leisure-vector-illustration-with-group-of-diversity-people-read-books-sitting-or.jpg?s=612x612&w=0&k=20&c=V2kNJt4vn5Ar26uzjXaUcbF27Naq8ZL_lVzU_8avbIY=',
-    //     'https://d7hftxdivxxvm.cloudfront.net/?height=455&quality=85&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FIpHEGWsdTTs_EAhJjBdtMg%2Fmain.jpg&width=800',
-    //     'https://picsum.photos/200/300',
-    //     'https://picsum.photos/200/300',
-    //     'https://picsum.photos/200/300',
-    //     'https://picsum.photos/200/300',
-    //     'https://picsum.photos/200/300',
-    //     'https://picsum.photos/200/300',
-    // ]
-    let img_sources = Array.from({ length: 50 });
-    // return (
-        
-    //     <div className="border-red-700 border-2 h-[85vh] mt-12 mx-24 flex items-start justify-center">
-    //       <div className="img-grid grid  gap-2 h-auto-fill w-full" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))' }}>
-    //         {img_sources.map((source, index) => (
-    //           <div 
-    //           key={index} 
-    //           className="h-[100px] w-full rounded-md bg-red-500 text-xs p-5">
-    //             Holden reminds me of my boyfriend
-    //           </div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   );
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'individual'
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCard, setCurrentCard] = useState({});
   const [isPopupVisible, setisPopupVisible] = useState(false);
+  const [cardList,setCardList] = useState([
+    { book:'Normal People - Sally Rooney', 
+      message:'There is nothing normal about those people',
+      name: 'BN',
+      index:0
+    }
 
-  const togglePopup = () =>{
-    setisPopupVisible(!isPopupVisible)
-    console.log('switching')
+  ]);
+
+
+  const handleAddCard = (newCardInfo) =>{
+    //TODO: Validation of card info
+    setCardList((prevCardList)=>{
+      const updatedCardList = [ newCardInfo, ...prevCardList]
+      console.log('Updated card list: ',updatedCardList)
+      return updatedCardList
+    })
+  }
+
+  const togglePopup = (event) =>{
+    const popupCard = document.getElementById('popupCard');
+
+    // To close popup by clicking outside of it  
+    //event.target returns the div that was clicked on 
+    if (!popupCard || !event || !popupCard.contains(event.target)){  // better to use .contain than equal ?
+      //setCurrentCard({name:'',message:'',index:-1})
+      setisPopupVisible(!isPopupVisible)
+      console.log('Submitted Info: ', )
+      
+    }
+    
+    console.log('Youve clicked on popupCard')
   }
 
   const handleViewChange = () => {
@@ -49,11 +51,22 @@ const PastEvents = () => {
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % img_sources.length);
+    // 4 cards
+    // 0, 3
+    // 1, 2
+    // 2, 1
+    // 3, 0
+
+    const nextCardIndex =  cardList.length - currentCard.index 
+    const nextCard = cardList[nextCardIndex]
+    setCurrentCard(nextCard)
+    
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + img_sources.length) % img_sources.length);
+    const prevCardIndex =  cardList.length - ((currentCard.index +1) +1)
+    const prevCard = cardList[prevCardIndex]
+    setCurrentCard(prevCard)
   };
 
   return (
@@ -73,32 +86,33 @@ const PastEvents = () => {
                 togglePopup()
               }}
             > 
-              <Popup isVisible={isPopupVisible} onClose={togglePopup}></Popup>
+              
               <Plus className='bg-transparent' size={30}></Plus>
             </div>
-          {img_sources.map((source, index) => (
+            <AddCard isVisible={isPopupVisible} index={cardList.length} onClose={togglePopup} onSubmit={(card)=>handleAddCard(card)}></AddCard>
+          {cardList.map((card, index) => (
             <div 
               key={index} 
               className="h-[300px] w-full rounded-md  py-12 px-6 bg-[#6cc2b8] border-2 border-[#ecc4e3]"
               onClick={() => {
-                setCurrentIndex(index);
+                setCurrentCard(card);
                 setViewMode('individual');
               }}
             >
-            <div className='text-[14px] bg-transparent'>{currentIndex + 1}</div>
+            <div className='text-[14px] bg-transparent'>{card.index + 1}</div>
             <div className=' bg-transparent w-full flex flex-row items-center font-bold text-[20px]'> <Library className='bg-transparent pb-1' size={30}/> <span className='bg-transparent'>Normal People - Sally Rooney</span> </div>
-            <div className='bg-transparent font-bold text-[14px] h-32 overflow-y-scrollpy-2 mt-4 w-full'> There is nothing normal about those people.</div>
-            <div className='bg-transparent font-bold text-[14px] mt-4 w-full'> BN</div>
+            <div className='bg-transparent font-bold text-[14px] h-32 overflow-y-scrollpy-2 mt-4 w-full'> {card.message}</div>
+            <div className='bg-transparent font-bold text-[14px] mt-4 w-full'> {card.name}</div>
             </div>
           ))}
         </div>
-      ) : (
+      ) :  (
         <div className="flex flex-col items-center justify-center w-full h-full">
           <div className="h-[85%] w-full rounded-md bg-[#6cc2b8] border-2 border-[#ecc4e3] flex flex-col justify-start text-lg py-20 px-14">
-            {currentIndex + 1}
+            {currentCard.index +1}
             <div className='border-2 bg-transparent border-black w-full flex flex-row items-center font-bold text-[2em] gap-2'> <Library className='bg-transparent' size={50}/> <span className='bg-transparent'>Normal People - Sally Rooney</span> </div>
-            <div className='bg-transparent  font-bold text-[1.2em] gap-4 h-max-56 py-8 w-full'> There is nothing normal about those people.</div>
-            <div className='bg-transparent  font-bold text-[1.1em] gap-4 py-2 w-full'> BN</div>
+            <div className='bg-transparent  font-bold text-[1.2em] gap-4 h-max-56 py-8 w-full'> {currentCard.message}</div>
+            <div className='bg-transparent  font-bold text-[1.1em] gap-4 py-2 w-full'> {currentCard.name}</div>
 
 
           </div>
@@ -106,16 +120,16 @@ const PastEvents = () => {
             <button 
               className=" p-2 rounded" 
               onClick={handlePrevious} 
-              disabled={currentIndex === 0}
+              disabled={currentCard.index === cardList.length - 1}
             >
               <ChevronLeft size={32} className='text-[#508d86] bg-transparent' />
             </button>
+
             <button 
               className="p-1 rounded" 
               onClick={handleNext} 
-              disabled={currentIndex === img_sources.length - 1}
+              disabled={currentCard.index === 0}
             >
-             
               <ChevronRight size={32} className='text-[#508d86] bg-transparent'/>
             </button>
           </div>

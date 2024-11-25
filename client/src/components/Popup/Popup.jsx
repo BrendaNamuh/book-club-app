@@ -54,24 +54,25 @@ export const Popup = ({isVisible, onClose }) => {
 
 
     const handleSubmission = () => {
-        const isValidEmail = emailRegex.test(email);
-        const isValidSelection = bookSelected.title && bookSelected.author_name.length > 0;
+        onClose()
+        // const isValidEmail = emailRegex.test(email);
+        // const isValidSelection = bookSelected.title && bookSelected.author_name.length > 0;
 
-        // Set errors only if validation fails
-        setEmailError(isValidEmail ? '' : 'Please enter a valid email');
-        setBookError(isValidSelection ? '' : 'Please select a book');
+        // // Set errors only if validation fails
+        // setEmailError(isValidEmail ? '' : 'Please enter a valid email');
+        // setBookError(isValidSelection ? '' : 'Please select a book');
 
-        if (isValidEmail && isValidSelection) {
-            console.log('Valid submission: ',email,bookSelected)
-            onClose(email,bookSelected);
-        }
+        // if (isValidEmail && isValidSelection) {
+        //     console.log('Valid submission: ',email,bookSelected)
+        //     onClose(email,bookSelected);
+        // }
     };
 
     return (
         <>
             <div className="fixed inset-0 bg-black bg-opacity-20 flex justify-center items-center">
                 <div className="bg-[#dbe7e8d2] w-[500px] h-[440px] rounded-xl relative p-10">
-                    <button onClick={()=>onClose(null,null)} className="absolute top-2 right-3 text-white"><BookmarkX className='bg-transparent ' size={30} /></button>
+                    <button onClick={()=>onClose()} className="absolute top-2 right-3 text-white"><BookmarkX className='bg-transparent ' size={30} /></button>
                     <h2 className="text-white text-4xl font-bold bg-transparent">Book Submission</h2>
                     <p className="text-white text-s font-bold bg-transparent">What book should we read next?</p>
 
