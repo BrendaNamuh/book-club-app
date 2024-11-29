@@ -9,16 +9,9 @@ import bookclubPhoto from '../../media/normalpeople_cover.jpg';
 
 
 const UpcomingEvents = () => {
-    
+    const [selectedBook, setSelectedBook] = useState({})
     const [showSearchResults, setShowSearchResults] = useState(true)
-    const [inputValue, setInputValue] = useState(''); // Value in search bar
 
-
-    const selectSearchResult = (selectedResult)=>{
-        console.log('User selected: ',selectedResult)
-        setInputValue(selectedResult.title);
-        setShowSearchResults(false);
-    }
     const registrations = [
         {"first_name":"Bren","last_name":"Nam"},
         {"first_name":"Jack","last_name":"Nam"},
@@ -34,25 +27,25 @@ const UpcomingEvents = () => {
         {"first_name":"Yacoub","last_name":"Nam"},
     ]
     return(
-    <div className="h-[85vh] mt-10 mx-20 flex items-start justify-center"> 
+    <div className="h-[85vh] mt-10 mx-auto w-[92%] flex items-start justify-center"> 
     {/* <p className='pr-10'>Mark your calendars, <br/> submit your votes! <br/><br/>2 Days left 'till <br/>the voting poll<br/> closes.</p> */}
     {/* LHS */}
     
-    <div className=" h-full  w-[60%] flex-col p-5 px-12 border-2 ">
+    <div className=" h-full  w-[40%] flex-col p-5 px-12 ">
     
-        <div className='text-[30px] font-bold mb-2'>Upcoming Meetup</div>
+        <div className='text-[30px] mb-2'>Upcoming Meetup</div>
             {/* Datetime */}
             <div className=" h-[10%] mt-2 flex flex-row items-center">
-                <Calendar  size={30}/>
+                <Calendar  color='black'size={30} style={{ strokeWidth: '1' }}/>
                 <div className='flex flex-col ml-4'>
                 <div className='font-bold text-m'>Friday, November 15</div>
                 <div className='text-xs'>6:00 PM - 8:00 PM</div>
                 </div>
             </div>
             {/* LOCATION */}
-            <div className=" h-[10%] mt-2 flex flex-row items-center">
-                <MapPin  size={30} style={{ strokeWidth: '1' }}/>
-                <div className='flex flex-col ml-4'>
+            <div className=" h-[10%] mt-2 flex flex-row items-center text-gray">
+                <MapPin  color='black'  size={30} style={{ strokeWidth: '1' }}/>
+                <div className='flex flex-col ml-4 hover:text-blue-800'>
                 <div className='font-bold text-m'>Juna Library</div>
                 <div className='text-xs'>1234 Maple Street, Montreal, QC H2X 1Y2, Canada</div>
                 </div>
@@ -62,37 +55,20 @@ const UpcomingEvents = () => {
                 {registrations.map((item,i)=>{
 
                     return (
-                    <div className="w-8 h-8 border-2 border-[#ebd8e7] rounded-full -ml-4 text-xs flex items-center justify-center" key={i}>
+                    <div className="w-8 h-8 border-[1px] border-black rounded-full -ml-4 text-xs flex items-center justify-center" key={i}>
                         {item.first_name[0]}{item.last_name[0]}
                     </div>
                 )})}
             </div>
-            <div className=" pl-2 h-8 mt-6 text-ls ">Cast your vote below for our next read: </div>
-            <div className="h-[212px] w-[85%]">
-                <VotingPoll/>    
+            <div className="h-1/2 w-[45%] border-2 mt-8 shadow-md">
+                <img className='' src={`https://covers.openlibrary.org/b/olid/${selectedBook.book_id}-M.jpg`} />
             </div>
-            
-            <div className='border-[1px] border-gray-300 w-[100%] h-0 mt-5'></div>
-            <button className="px-2 py-1.5 mt-4 flex flex-row items-center">
-                <span>Suggest a book</span>
-                <MoveUpRight className='top-14 ml-2' size={12}/>
-                </button>
-            
-   
     </div>
      
     {/* RHS */}
     
-    <div className=" h-full border-l-2 border-gray-300 pl-16 flex-grow p-5 flex flex-col">
-   
-        
-            <div className=" h-[600px] w-[88%] rounded-lg shadow-lg">
-                <img className='' src={bookclubPhoto}/>
-                {/* <div>No book has been selected</div> */}
-        </div>
-   
-       
-
+    <div className="h-full p-2 border-l-2 border-gray-300 flex-grow flex flex-col justify-center">
+        <VotingPoll setSelectedBook={setSelectedBook}/>     
     </div>
 
     </div>

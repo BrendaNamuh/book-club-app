@@ -2,23 +2,21 @@ import React, { useState,useEffect } from 'react';
 import './VotingPoll.css';
 import {Popup} from '../Popup/Popup.jsx';
 
-export const VotingPoll = () => {
+export const VotingPoll = ({setSelectedBook}) => {
+  const apiUrl = "https://81k7sc1065.execute-api.us-east-2.amazonaws.com/dev/votes"
 
-  ///// Backend 
-  const options = [
-    { title: 'Normal People', count: 1 },
-    { title: 'Lovely Day', count: 1 },
-    { title: 'Book Lovers', count: 1 },
-    { title: 'Catcher in the Rye', count: 1 },
-  ];
-  const [votes, setVotes] = useState([]); // Value in search bar
+
+  const [votes, setVotes] = useState([]);
+  
 
     useEffect(()=>{
       const fetchVotes = async ()=>{
           try{
-              const votes_response = await fetch("/votes")
+              const votes_response = await fetch(apiUrl)
               const votes_json = await votes_response.json()
               setVotes(votes_json)
+             
+
               console.log('Votes from backend: ', votes_json)
           }
           catch(error){
@@ -26,23 +24,19 @@ export const VotingPoll = () => {
           }
 
       }
-      //fetchVotes();
-      let total_count = options.reduce((sum,item)=> sum + item.count,0)
-      options.map((item)=>{
-          item['percentage'] = Math.round((item.count/total_count)*100)
-      })
-      console.log(options)
-      setVotes(options)
+
+      fetchVotes();
+      console.log('votes has been updated: ', votes)
 
     },[])
-
-    /////////
+   
     const [showPopup,setShowPopup] = useState(false)
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [displayResults,setDisplayResults] = useState(false)
     const handleBoxClick = (index) => {
       setSelectedIndex(index);
-      console.log('Option Selected: ',votes[index].title)
+      setSelectedBook(votes[index])
+      console.log('Option Selected: ',votes[index].book_title)
     };
 
     const handleAddBookClick = () =>{
@@ -50,40 +44,85 @@ export const VotingPoll = () => {
       setShowPopup(true)
       
     }
-    const handleSubmit = () =>{
-      console.log('The user has submited the following vote: ')
-      setDisplayResults(true)
+    const handleSubmit = async () =>{
+      const selectedBook = votes[selectedIndex]
+      console.log('The user has submited the following vote: ', selectedBook)
+
+      // Send vote to backend
+      const currentTimestamp= new Date().toISOString();
+      try{
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          body: JSON.stringify({
+            timestamp: currentTimestamp,
+            email: "jenny@gmail.com",
+            book_id: selectedBook.book_id,
+            book_title: selectedBook.book_title,
+          }),
+          headers: {
+            'Content-Type': 'application/json', // Specify content type for the request
+          },
+        });
+        //Check if user has voting rights
+        const responseData = await response.json()
+        console.log('Response from server:', responseData);
+        
+        // USER HAS ALREADY VOTED
+        if (responseData["code"] ==1){
+          console.log(responseData["msg"])
+        }
+        // USER HAS NOT YET VOTED
+        else{
+          var updated_votes = votes.map((option,index)=>
+            index === selectedIndex ? { ...option, count: option.count + 1 } : option
+          )
+          //Re-calculate percentage
+          let total_count = updated_votes.reduce((sum,item)=> sum + item.count,0)
+          updated_votes.forEach((item) => {
+            item['percentage'] = total_count > 0 ? Math.round((item.count / total_count) * 100) : 0;
+          });
+          console.log(updated_votes)
+          setVotes(updated_votes)
+          setDisplayResults(true)
+        }
+      }
+      catch(error){
+        console.log('Error w/ post request: ', error)
+      }
+      
+      
       
     }
+  
     const onPopupClose = (email,bookSelected) =>{
       if (email != null){
         console.log('Popup is closed and weve gathered the valid form: ', email, bookSelected)
-        const newVote = { "title": bookSelected.title, "count": 1 };
+        const newVote = { "title": bookSelected.book_title, "count": 1 };
         setVotes(prevVotes => [...prevVotes, newVote]);
       }
       setShowPopup(false)
     }
   
     return (
-    
-      <> 
+    // DC143C
+      <div className='mx-auto h-[80%] w-[70%]'> 
           <div className="et__box--wrapper">
           {/* <button className='add-book-button' onClick={handleAddBookClick}>Add a book</button> */}
             <button className='submit-vote-button' onClick={handleSubmit}>Submit Vote</button>
             {/* <header className='rounded-t-lg font-bold text-sm mb-10 h-9 flex items-center pb-2'>Please vote for our next read</header> */}
-            <div className="et__poll--area">
+            <div className="et__poll--area  ">
               {votes.map((option, index) => (
                 <label
                   key={index}
-                  className={`flex flex-row items-center et__box ${selectedIndex === index ? 'et__selected' : ''}`}
+                  className={`flex flex-row items-center  et__box ${selectedIndex === index ? 'et__selected' : ''}`}
                   onClick={() => handleBoxClick(index)}
                 >
-                  <div className="et__row bg-transparent">
+                  <div className="et__row bg-transparent ">
                     <div className="et__column bg-transparent">
                       <span className="et__circle"></span>
                       <div className="et__title font-medium bg-transparent pl-3 "
                       >
-                      {option.title}</div>
+                      {option.book_title}</div>
                     </div>
                     <div 
                       className="et__percent font-medium bg-transparent"
@@ -113,7 +152,7 @@ export const VotingPoll = () => {
           </div>
      
     {showPopup && <Popup onClose={onPopupClose}/>}
-    </>
+    </div>
     );
   };
 

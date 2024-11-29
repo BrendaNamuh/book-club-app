@@ -14,13 +14,13 @@ import PastEvents from './components/PastEvents/PastEvents.jsx'; // Example comp
 function App() {
   const [results, setResults] = useState([]);
   return (
-    <div className='App'>
+    <div className='App flex flex-col border-2 border-blue-800 h-[100vh]'>
 
       <Router> 
       <NavBar/>
       <Routes>
-        <Route path="/" element={<CurrentlyReading/>} />
-        <Route path="/upcoming-events" element={<UpcomingEvents />} />
+        <Route path="/" element={<CurrentlyReading className="mx-auto" />} />
+        <Route path="/upcoming-events" element={<UpcomingEvents className="mx-auto" />} />
         <Route path="/past-events" element={<PastEvents />} />
       </Routes>
       </Router>

@@ -29,6 +29,11 @@
 }
 
 
+.et__box{
+  height:25%;
+}
+
+
 .et__box--wrapper {
   width: 100%;
   height: 100%;
@@ -157,7 +162,7 @@
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust to center */
-    background-color: rgba(198, 132, 186, 0.989);
+    background-color: #DC143C;
     visibility:hidden;
     
 }
@@ -203,8 +208,8 @@
 
 .et__poll--area .et__box .et__progress .progress-bar {
   height: 100%;
-  background-color: rgba(198, 132, 186, 0.989); /* Fill color */
+  background-color: #DC143C; /* Fill color */
   width: 0; /* Start at 0 */
-  transition: width 0.5s ease; /* Smooth transition */
+  transition: width 0.5s ease; /* S_mooth transition */
   border-radius: 30px;
 }
