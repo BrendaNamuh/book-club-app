@@ -8,9 +8,24 @@ import bookclubPhoto from '../../media/normalpeople_cover.jpg';
 
 
 
+
+const bookCovers = { 
+    "Real Life": "https://m.media-amazon.com/images/I/81jpZV2gViL._AC_UF350,350_QL50_.jpg",
+     "Intermezzo":"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1716387455i/208931300.jpg",
+     "Homegoing": "https://m.media-amazon.com/images/I/81H1tStHREL.jpg",
+     "Assembly":"https://books.google.com/books/content?id=k1YmzgEACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72WsCRcxjJ2AefbNlYBOmy-9ZWAz_HZhVstY1HcTb3P8FnXGQQbHFXraAsLjKfiJ9rIUeE2TupVporZ0foWrkq1Hc-gulyeb15XfKd8t9UcFj_78RSdMCuUzhO5kByH72qt-8rk",
+}
+
+const GetDateOfMeeting = () => {
+    let currentDate = new Date()
+    console.log(currentDate.getMonth())
+    return `${currentDate.getDate()}/${currentDate.getMonth()+3}/${currentDate.getFullYear()}` 
+}
 const UpcomingEvents = () => {
     const [selectedBook, setSelectedBook] = useState({})
     const [showSearchResults, setShowSearchResults] = useState(true)
+
+   
 
     const registrations = [
         {"first_name":"Bren","last_name":"Nam"},
@@ -31,14 +46,14 @@ const UpcomingEvents = () => {
     {/* <p className='pr-10'>Mark your calendars, <br/> submit your votes! <br/><br/>2 Days left 'till <br/>the voting poll<br/> closes.</p> */}
     {/* LHS */}
     
-    <div className=" h-full  w-[40%] flex-col p-5 px-12 ">
+    <div className=" h-full  w-[45%] flex-col p-5 px-12 ">
     
         <div className='text-[30px] mb-2'>Upcoming Meetup</div>
             {/* Datetime */}
             <div className=" h-[10%] mt-2 flex flex-row items-center">
                 <Calendar  color='black'size={30} style={{ strokeWidth: '1' }}/>
                 <div className='flex flex-col ml-4'>
-                <div className='font-bold text-m'>Friday, November 15</div>
+                <div className='font-bold text-m'> {GetDateOfMeeting()}</div>
                 <div className='text-xs'>6:00 PM - 8:00 PM</div>
                 </div>
             </div>
@@ -60,15 +75,34 @@ const UpcomingEvents = () => {
                     </div>
                 )})}
             </div>
-            <div className="h-1/2 w-[45%] border-2 mt-8 shadow-md">
-                <img className='' src={`https://covers.openlibrary.org/b/olid/${selectedBook.book_id}-M.jpg`} />
+            <div className="h-1/2 w-[100%] mt-8 shadow-md rounded-[15px] overflow-hidden">
+                <VotingPoll setSelectedBook={setSelectedBook}/>  
             </div>
     </div>
      
     {/* RHS */}
     
-    <div className="h-full p-2 border-l-2 border-gray-300 flex-grow flex flex-col justify-center">
-        <VotingPoll setSelectedBook={setSelectedBook}/>     
+    <div className="h-full p-2 border-l-2 border-gray-300 flex-grow flex justify-center">
+        <div className=''>
+        
+        { Object.keys(selectedBook).length === 0  && <div className='h-full flex justify-center items-center'> No book selected</div>}
+        
+        {/* <div className='h-[90%] w-[390px]' >
+            <img 
+                src={`https://covers.openlibrary.org/b/olid/${selectedBook.book_id}-M.jpg`} 
+               
+            />
+        </div> */}
+        <div className=" h-[200px] w-[590px] grid grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] grid-rows-auto gap-2">
+  {[...Array(24)].map((_, index) => (
+    <img
+      key={index}
+      src={bookCovers[selectedBook.book_title]}
+      className="w-full h-auto object-cover"
+    />
+  ))}
+</div>
+        </div>
     </div>
 
     </div>

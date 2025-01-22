@@ -40,36 +40,33 @@
   padding: 10px;
   padding-bottom:60px;
   position: relative;
-  border: solid 2px rgb(212, 212, 212);
+  /* border: solid 2px rgb(212, 212, 212); */
+  border: solid 1px #391e1e;
   border-radius: 15px;
   /* background-color: rgb(244, 244, 244); */
   
 }
 
-.add-book-button{
-  position: absolute;
-  bottom:30px;
-  right:15px;
-  border:solid 0.5px rgb(242, 242, 242);
-  border-radius: 10px;
-  background-color: rgb(242, 242, 242);
-  padding:5px 10px 5px 10px;
-  color: black;
-}
+
 .submit-vote-button{
   position: absolute;
   bottom:15px;
   right:15px;
   left:20px;
-  border:solid 0.5px rgb(185, 185, 185);
+  /* border:solid 0.5px rgb(185, 185, 185); */
+  border: solid 1px #391e1e;
   border-radius: 10px;
-  background-color: rgb(242, 242, 242);
+  /* background-color: rgb(242, 242, 242); */
+  background-color: transparent;
   padding:5px 10px 5px 10px;
 
   color: black;
 
 }
+.submit-vote-button:hover{
+  background-color: #391e1e31;
 
+}
 .et__box--wrapper header {
   position: absolute;
   color: gray;
@@ -90,7 +87,7 @@
   overflow: scroll;
   height: 100%;
   padding:10px;
-
+  /* border: solid 2px #391e1e; */
   /* border: solid 2px rgb(212, 212, 212); */
   border-radius: 15px;
   background-color: transparent;
@@ -108,7 +105,8 @@
   padding: 5px;
   cursor: pointer;
   border-radius: 12px;
-  border: 2px solid var(--clr-gray-200);
+  border: solid 1px #391e1e;
+  /* border: 2px solid var(--clr-gray-200); */
   /* background-color: rgba(237, 237, 237, 0.838); */
   transition: all 0.2s ease;
  
@@ -117,13 +115,11 @@
 }
 
 .et__poll--area .et__box:hover {
-  border-color: var(--clr-primary);
-  background-color: transparent;
+  /* border-color: var(--clr-primary); */
+  border-color:  #391e1e;
+  background-color: #391e1e31;
+  
 }
-
-/* .et__poll--area .et__box.et__selected {
-  border-color: var(--clr-primary);
-} */
 
 .et__poll--area .et__box .et__row {
   display: flex;
@@ -145,8 +141,8 @@
   margin-right: 15px;
   border-radius: 50%;
   position: relative;
-  border: 2px solid var(--clr-gray-100);
-  
+  /* border: 2px solid var(--clr-gray-100); */
+  border: solid 1px #391e1e;
 }
 
 .et__poll--area .et__box.et__selected .et__circle::after {
@@ -162,13 +158,14 @@
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust to center */
-    background-color: #DC143C;
+    background-color: #dc143ce8;
     visibility:hidden;
     
 }
 
 .et__poll--area .et__box.et__selected .et__row .et__circle {
-  border-color: var(--clr-primary);
+  /*border-color: var(--clr-primary);*/
+  border-color: #391e1e; 
 }
 
 .et__poll--area .et__box .et__row span {

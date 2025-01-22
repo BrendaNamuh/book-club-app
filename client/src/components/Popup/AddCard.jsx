@@ -39,7 +39,12 @@ export const AddCard = ({isVisible, onClose, onSubmit }) => {
     const handleSubmit = () =>{
         console.log('Popup Submit is clicked:', cardData)
         const currentTimestamp = new Date().toISOString()
-        const updatedReview  = {...cardData,timestamp:currentTimestamp}
+        // If user_name is empty, we assign "Anonymous" directly to updatedReview
+        const updatedReview = {
+        ...cardData, // Spread the current state
+        user_name: cardData.user_name === "" ? "Anonymous" : cardData.user_name, // Check and assign "Anonymous" if empty
+        timestamp: currentTimestamp // Add the timestamp
+    };
         onSubmit(updatedReview)
         onClose()
     }
@@ -48,14 +53,16 @@ export const AddCard = ({isVisible, onClose, onSubmit }) => {
         <div onClick={onClose} className="fixed inset-0 bg-black bg-opacity-20 flex justify-center items-center">
         
         {/* Popup Card */}
-        <div id="popupCard" className="flex flex-col items-center justify-start w-[70%] h-[60%] rounded-md border-2 border-double border-[#dc143c34] bg-[#fbfbfb] text-lg py-6 px-14 gap-4">
-            {1}
-            <div className='border-2 border-double bg-transparent border-[#dc143ca2] w-full flex flex-row items-center font-bold text-[2em] gap-2'> <Library className='bg-transparent' size={50}/> <span className='bg-transparent'>{cardData.book_title} - {cardData.book_author}</span> </div>
+        <div id="popupCard" className="flex flex-col items-center justify-start w-[65%] h-[78%] rounded-md border-2 border-[#391e1e] bg-[#fbfbfb] text-lg py-14 px-16 gap-8">
+            {/* {1} */}
+            <div className='bg-transparent h-[60px] w-full overflow-x-hidden flex flex-row items-center font-bold text-[40px] gap-2'> <Library className=' bg-transparent min-w-[50px]' size={50}/> 
+            <span className='bg-transparent flex-1 whitespace-nowrap'>{cardData.book_title} - {cardData.book_author}</span> 
+            </div>
             
-            <div className='border-2 border-double bg-transparent border-[#dc143ca2] font-bold text-[1.2em] h-[60%] w-full overflow-y-scroll'>
+            <div className=' bg-transparentfont-bold text-[1.2em] h-[60%] w-full overflow-y-scroll'>
                 <textarea  
-                    placeholder='Enter a secret, a reflection or a review'
-                    className=' text-[#391e1e] placeholder:text-[#391e1e] border-2 pb-10 w-[100%] h-full bg-transparent'
+                    placeholder='Enter your honest thoughts, no filters'
+                    className=' text-[#391e1e] placeholder:text-[#391e1e] p-2 border-2 border-[#391e1e]  w-[100%] h-full bg-transparent focus:outline-none'
                     name="message"
                     value={cardData.message}
                     onChange={handleChange}
@@ -63,20 +70,19 @@ export const AddCard = ({isVisible, onClose, onSubmit }) => {
                 </textarea >
             </div>
 
-            <div className='border-2 border-double bg-transparent border-[#dc143ca2] font-bold text-[1.1em] gap-4 py-2 w-full'>
+            <div className=' bg-transparent text-[1.1em] gap-4 py-2 w-full border-2 border-[#391e1e] overflow-x-hidden'>
                 <input
-                    placeholder='Enter your name or initials or leave empty to remain anonymous'
+                    placeholder='Enter your name, initials or leave empty to remain anonymous'
                     name="user_name"
                     className='placeholder:text-[#391e1e] '
                     value={cardData.user_name}
                     onChange={handleChange}
                 ></input>
             </div>
-            <div className='w-full mt-3 flex justify-end bg-transparent'><button onClick={()=>handleSubmit()}className='border-2 px-4 rounded-lg '>Submit</button> </div>
+            <div className='w-full mt-3 flex justify-end bg-transparent'><button onClick={()=>handleSubmit()}className='border-2 px-4 rounded-lg border-[#391e1e] '>Submit</button> </div>
             
             </div>
       </div>
-    //   </div>
            
     );
 };

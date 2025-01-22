@@ -22,7 +22,7 @@ const NavBar = () => {
           <ul className='flex flex-row h-full items-center space-x-6 text-gray-500' >
             <li onClick={()=>handleClick('currently-reading')} className={`nav-link ${activePage === 'currently-reading' ? 'active' : ''}`}><Link to="/">Home</Link></li>
             <li onClick={()=>handleClick('upcoming-events')} className={`nav-link ${activePage === 'upcoming-events' ? 'active' : ''}`}>  <Link to="/upcoming-events">Next Read</Link></li>
-            <li onClick={()=>handleClick('past-events')} className={`nav-link ${activePage === 'past-events' ? 'active' : ''}`}> <Link to="/past-events">Left Unsaid</Link></li>
+            <li onClick={()=>handleClick('past-events')} className={`nav-link ${activePage === 'past-events' ? 'active' : ''}`}> <Link to="/past-events">Secrets</Link></li>
           </ul>
       </nav>
       

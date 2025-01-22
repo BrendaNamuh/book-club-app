@@ -7,6 +7,7 @@ export const VotingPoll = ({setSelectedBook}) => {
 
 
   const [votes, setVotes] = useState([]);
+  const [isLocked, setIsLocked] = useState(false);
   
 
     useEffect(()=>{
@@ -44,6 +45,7 @@ export const VotingPoll = ({setSelectedBook}) => {
       setShowPopup(true)
       
     }
+
     const handleSubmit = async () =>{
       const selectedBook = votes[selectedIndex]
       console.log('The user has submited the following vote: ', selectedBook)
@@ -55,7 +57,7 @@ export const VotingPoll = ({setSelectedBook}) => {
           method: 'POST',
           body: JSON.stringify({
             timestamp: currentTimestamp,
-            email: "jenny@gmail.com",
+            email:`user${Math.floor(Math.random() * 1000000)}@example.com` ,
             book_id: selectedBook.book_id,
             book_title: selectedBook.book_title,
           }),
@@ -84,6 +86,7 @@ export const VotingPoll = ({setSelectedBook}) => {
           console.log(updated_votes)
           setVotes(updated_votes)
           setDisplayResults(true)
+          setIsLocked(true)
         }
       }
       catch(error){
@@ -105,17 +108,16 @@ export const VotingPoll = ({setSelectedBook}) => {
   
     return (
     // DC143C
-      <div className='mx-auto h-[80%] w-[70%]'> 
+      // <div className='mx-auto h-[80%] w-[70%]'> 
+      <div className='mx-auto h-full w-full'> 
           <div className="et__box--wrapper">
-          {/* <button className='add-book-button' onClick={handleAddBookClick}>Add a book</button> */}
-            <button className='submit-vote-button' onClick={handleSubmit}>Submit Vote</button>
-            {/* <header className='rounded-t-lg font-bold text-sm mb-10 h-9 flex items-center pb-2'>Please vote for our next read</header> */}
+            <button className='submit-vote-button' onClick={handleSubmit} disabled={isLocked}>Submit Vote</button>
             <div className="et__poll--area  ">
               {votes.map((option, index) => (
                 <label
                   key={index}
                   className={`flex flex-row items-center  et__box ${selectedIndex === index ? 'et__selected' : ''}`}
-                  onClick={() => handleBoxClick(index)}
+                  onClick={() => !isLocked && handleBoxClick(index) }
                 >
                   <div className="et__row bg-transparent ">
                     <div className="et__column bg-transparent">
