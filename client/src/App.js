@@ -16,7 +16,7 @@ function App() {
   return (
     <div className='App flex flex-col h-[100vh]'>
 
-      <Router> 
+      <Router basename="/book-club-app"> 
       <NavBar/>
       <Routes>
         <Route path="/" element={<CurrentlyReading />} />
