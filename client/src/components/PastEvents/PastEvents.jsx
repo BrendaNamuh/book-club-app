@@ -187,7 +187,7 @@ const PastEvents = () => {
                 Normal People - Sally Rooney
               </span>
             </div>
-            <div className="text-[1.3em] mt-7 p-4 h-[400px] w-full overflow-y-hidden">
+            <div className="text-[1.3em] mt-4 p-4 h-[500px] w-full overflow-y-scroll">
               {currentCard.message}
             </div>
             <div className="text-[1.1em] mt-8 gap-4 py-2 w-full">
